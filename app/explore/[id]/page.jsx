@@ -1,8 +1,10 @@
+
 import React from 'react'
 import data from '@/data'
 
-// This component receives `params` from Next.js in app router
+// ✅ No need for `async` here
 const Page = ({ params }) => {
+  // params.id is available directly
   const post = data.find((item) => item.id.toString() === params.id)
 
   if (!post) {
@@ -34,7 +36,7 @@ const Page = ({ params }) => {
           </p>
         )}
 
-        <p className="absolute bottom-5 right-5 text-sm text-white/50 italic">
+        <p className="text-right text-sm text-white/50 italic">
           {post.date || 'Unknown date'}
         </p>
       </div>
@@ -43,4 +45,3 @@ const Page = ({ params }) => {
 }
 
 export default Page
-  

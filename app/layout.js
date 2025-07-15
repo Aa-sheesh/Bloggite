@@ -1,6 +1,7 @@
 import { Ubuntu_Sans_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { Toaster } from "sonner";
 
 // Load with CSS variable
 const ubuntuSansMono = Ubuntu_Sans_Mono({
@@ -23,6 +24,7 @@ export default function RootLayout({ children }) {
       <body className="min-h-screen min-w-screen px-10 py-5 antialiased bg-blog">
         <Navbar/>
         {children}
+        <Toaster position="top-center" richColors expand /> {/* ✅ Add this */}
       </body>
     </html>
   );
