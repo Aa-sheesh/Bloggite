@@ -1,27 +1,77 @@
-import connectDB from '@/lib/db'
-import Post from '@/lib/models/Post'
-import React from 'react'
-import { notFound } from 'next/navigation'
+import connectDB from '@/lib/db';
+import Post from '@/lib/models/Post';
+import React from 'react';
+import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {
-  await connectDB()
-  const posts = await Post.find({}, '_id').lean()
+  await connectDB();
+  const posts = await Post.find({}, '_id').lean();
 
   return posts.map((post) => ({
     id: post._id.toString(),
-  }))
+  }));
 }
 
-// ✅ FIXED: Don't destructure 'params' directly in the argument
-const Page = async (props) => {
-  const { params } = props
-  const { id } = params
+// ✅ Dynamic SEO metadata for each blog post
+export async function generateMetadata({ params }) {
+  await connectDB();
+  const post = await Post.findById(params.id).lean();
 
-  await connectDB()
+  if (!post) {
+    return {
+      title: "Post Not Found – Bloggite",
+      description: "This blog post could not be found on Bloggite.",
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
+  }
 
-  if (!id) return notFound()
+  const url = `https://bloggite-v1.vercel.app/explore/${params.id}`;
+  const title = `${post.title} – Bloggite by Aashish Singh`;
+  const description = post.summary || post.body || "Read this insightful blog post by Aashish Singh on Bloggite.";
+  const image = post.coverImage || "https://bloggite-v1.vercel.app/assets/default-og.png";
 
-  const post = await Post.findById(id).lean()
+  return {
+    title,
+    description,
+    keywords: [post.title, "Bloggite", "Tech Blog", "Web Dev", "JavaScript", "MongoDB", "Next.js", "Aashish Singh"],
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: "Bloggite",
+      type: "article",
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [image],
+      creator: "@Aashish64605886",
+    },
+    metadataBase: new URL("https://bloggite-v1.vercel.app"),
+  };
+}
+
+// ✅ Actual page rendering the blog post
+const Page = async ({ params }) => {
+  const { id } = params;
+
+  await connectDB();
+
+  if (!id) return notFound();
+
+  const post = await Post.findById(id).lean();
 
   if (!post) {
     return (
@@ -30,7 +80,7 @@ const Page = async (props) => {
           Post not found.
         </h1>
       </div>
-    )
+    );
   }
 
   return (
@@ -55,7 +105,8 @@ const Page = async (props) => {
         </p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Page
+export default Page;
+  

@@ -1,4 +1,3 @@
-// app/admin/add-post/layout.tsx
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
