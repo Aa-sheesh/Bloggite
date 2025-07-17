@@ -1,9 +1,27 @@
+// app/api/admin/posts/[id]/route.js
 import { NextResponse } from 'next/server'
-import connectDB from '@/lib/db'
+import mongoose from 'mongoose'
 import Post from '@/lib/models/Post'
+import { cookies } from 'next/headers'
 
-// PATCH /api/admin/posts/:id → update post
+// Connect to MongoDB
+const connectDB = async () => {
+  if (mongoose.connection.readyState >= 1) return
+  await mongoose.connect(process.env.MONGODB_URI)
+}
+
+// Auth check
+function isAdminAuthenticated() {
+  const token = cookies().get('admin-token')?.value
+  return token === process.env.ADMIN_SECRET_KEY
+}
+
+// ✅ PATCH (update a post)
 export async function PATCH(req, { params }) {
+  if (!isAdminAuthenticated()) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
   try {
     await connectDB()
     const { id } = params
@@ -15,26 +33,30 @@ export async function PATCH(req, { params }) {
       return NextResponse.json({ error: 'Post not found' }, { status: 404 })
     }
 
-    return NextResponse.json({ message: 'Post updated', post: updatedPost }, { status: 200 })
+    return NextResponse.json({ message: 'Post updated', post: updatedPost })
   } catch (err) {
-    return NextResponse.json({ error: 'Server error' }, { status: 500 })
+    return NextResponse.json({ error: 'Failed to update post' }, { status: 500 })
   }
 }
 
-// DELETE /api/admin/posts/:id → delete post
+// ✅ DELETE (delete a post)
 export async function DELETE(_, { params }) {
+  if (!isAdminAuthenticated()) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
   try {
     await connectDB()
     const { id } = params
 
-    const deleted = await Post.findByIdAndDelete(id)
+    const deletedPost = await Post.findByIdAndDelete(id)
 
-    if (!deleted) {
+    if (!deletedPost) {
       return NextResponse.json({ error: 'Post not found' }, { status: 404 })
     }
 
-    return NextResponse.json({ message: 'Post deleted' }, { status: 200 })
+    return NextResponse.json({ message: 'Post deleted successfully' })
   } catch (err) {
-    return NextResponse.json({ error: 'Server error' }, { status: 500 })
+    return NextResponse.json({ error: 'Failed to delete post' }, { status: 500 })
   }
 }

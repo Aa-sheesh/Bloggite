@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
 import mongoose from 'mongoose'
-import Post from '@/models/Post' // Assuming you have this Mongoose model
+import Post from '@/lib/models/Post'
+import { cookies } from 'next/headers'
 
 // Connect DB
 const connectDB = async () => {
@@ -9,21 +9,24 @@ const connectDB = async () => {
   await mongoose.connect(process.env.MONGODB_URI)
 }
 
-// Auth helper
-function isAdmin() {
+
+
+function isAdminAuthenticated() {
   const token = cookies().get('admin-token')?.value
   return token === process.env.ADMIN_SECRET_KEY
 }
 
+
+
 export async function POST(req) {
-  if (!isAdmin()) {
+  if (!isAdminAuthenticated()) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
   await connectDB()
-  const { title, body, content, date } = await req.json()
+  const { title, content, thumbnail, date } = await req.json()
 
-  const post = new Post({ title, body, content, date })
+  const post = new Post({ title, content, thumbnail, date })
   await post.save()
 
   return NextResponse.json({ success: true, post }, { status: 201 })

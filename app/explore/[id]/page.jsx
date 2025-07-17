@@ -1,11 +1,28 @@
-
+// app/explore/[id]/page.tsx or page.jsx
+import connectDB from '@/lib/db'
+import Post from '@/lib/models/Post'
 import React from 'react'
-import data from '@/data'
+import { notFound } from 'next/navigation'
 
-// ✅ No need for `async` here
-const Page = ({ params }) => {
-  // params.id is available directly
-  const post = data.find((item) => item.id.toString() === params.id)
+// ✅ Static params for prerendering
+export async function generateStaticParams() {
+  await connectDB()
+  const posts = await Post.find({}, '_id').lean()
+
+  return posts.map((post) => ({
+    id: post._id.toString(),
+  }))
+}
+
+const Page = async ({ params }) => {
+  const { id } = params
+
+  await connectDB()
+
+  // ✅ Validate ID
+  if (!id) return notFound()
+
+  const post = await Post.findById(id).lean()
 
   if (!post) {
     return (
@@ -20,14 +37,12 @@ const Page = ({ params }) => {
   return (
     <div className="flex justify-center min-h-[80vh] px-4">
       <div className="bg-black/40 backdrop-blur-sm text-white rounded-lg p-6 md:p-8 max-w-3xl w-full shadow-lg">
-        <h1 className="text-2xl md:text-4xl font-bold italic mb-4 text-center ">
+        <h1 className="text-2xl md:text-4xl font-bold italic mb-4 text-center">
           {post.title}
         </h1>
 
         {post.body && (
-          <p className="text-lg opacity-80 mb-4 text-center">
-            {post.body}
-          </p>
+          <p className="text-lg opacity-80 mb-4 text-center">{post.body}</p>
         )}
 
         {post.content && (
@@ -37,7 +52,7 @@ const Page = ({ params }) => {
         )}
 
         <p className="text-right text-sm text-white/50 italic">
-          {post.date || 'Unknown date'}
+          {post.date ? new Date(post.date).toDateString() : 'Unknown date'}
         </p>
       </div>
     </div>

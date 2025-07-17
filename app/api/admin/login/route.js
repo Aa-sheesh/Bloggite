@@ -1,22 +1,23 @@
-// app/api/admin/login/route.js
 import { NextResponse } from 'next/server'
 
 export async function POST(req) {
   const { email, password } = await req.json()
 
   if (
-    email === 'aashishs4912345@gmail.com' &&
-    password === 'Peedhu483!'
+    email === process.env.ADMIN_EMAIL &&
+    password === process.env.ADMIN_PASSWORD
   ) {
-    const response = NextResponse.json({ success: true })
+    const res = NextResponse.json({ success: true })
 
-    response.cookies.set('admin-auth', 'loggedin', {
-      httpOnly: false, // allow client-side access
+    // ✅ Set secure cookie valid for 7 days
+    res.cookies.set('admin-token', process.env.ADMIN_SECRET_KEY, {
+      httpOnly: true,
       path: '/',
-      maxAge: 60 * 60 * 24 * 7, // 7 days
+      maxAge: 60 * 60 * 24 * 7,
+      secure: process.env.NODE_ENV === 'production'
     })
 
-    return response
+    return res
   }
 
   return NextResponse.json({ success: false, error: 'Invalid credentials' }, { status: 401 })

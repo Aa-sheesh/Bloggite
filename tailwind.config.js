@@ -1,15 +1,13 @@
-// tailwind.config.js
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./app/**/*.{js,ts,jsx,tsx}", // Adjust paths as needed
-    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./app/**/*.{js,ts,jsx,tsx}",     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
       colors: {
-        blogLight: "#F7F7F2", // 👈 Add your custom text color
+        blogLight: "#F7F7F2", 
       },
       fontFamily: {
         ubuntuMono: ["var(--font-ubuntu-sans-mono)"], // 👈 For font variable

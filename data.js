@@ -1,7 +1,7 @@
 const data = [
   {
     id: 1,
-    image: "/placeholder.png",
+    image: "",
     title: "The Rise of Quantum Coffee",
     body: "Discover how a mysterious café is changing the rules of time and caffeine.",
     content: "At the intersection of caffeine and quantum mechanics lies a peculiar café where your coffee decides when your day begins. Patrons claim to experience meetings before they happen and deadlines that move backward. Whether it's a glitch in time or simply exceptional espresso, Quantum Coffee has brewed something the world wasn’t ready for—and maybe never will be.",
