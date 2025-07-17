@@ -17,7 +17,13 @@ const Hero = () => {
       try {
         const res = await fetch('/api/posts')
         const data = await res.json()
-        const recentPosts = (data.posts || []).slice(0, 5)
+
+        // Sort by date descending (newest first)
+        const sortedPosts = (data.posts || []).sort(
+          (a, b) => new Date(b.date) - new Date(a.date)
+        )
+
+        const recentPosts = sortedPosts.slice(0, 5)
         setTop5(recentPosts)
       } catch (err) {
         console.error('Error fetching posts:', err)
@@ -26,6 +32,7 @@ const Hero = () => {
 
     fetchPosts()
   }, [])
+
 
   return (
     <section className="px-4 md:px-20 min-h-[80vh] flex items-center justify-center text-center text-[#F7F7F2]">

@@ -33,13 +33,19 @@ const ManagePosts = () => {
     try {
       const res = await fetch('/api/posts')
       const data = await res.json()
-      setPosts(data.posts || [])
+
+      const sortedPosts = (data.posts || []).sort(
+        (a, b) => new Date(b.date) - new Date(a.date)
+      )
+
+      setPosts(sortedPosts)
     } catch (err) {
       toast.error('Failed to fetch posts')
     } finally {
       setLoading(false)
     }
   }
+
 
   const handleDelete = async (id) => {
     const confirm = window.confirm('Are you sure you want to delete this post?')
@@ -102,86 +108,86 @@ const ManagePosts = () => {
   if (loading) return <p className="text-center mt-10">Loading posts...</p>
 
   return (
-      <section className="px-6 py-10 max-w-5xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6 text-center font-ubuntuMono">
-          Manage Posts
-        </h1>
+    <section className="px-6 py-10 max-w-5xl mx-auto">
+      <h1 className="text-3xl font-bold mb-6 text-center font-ubuntuMono">
+        Manage Posts
+      </h1>
 
-        {posts.length === 0 ? (
-          <p className="text-center">No posts found.</p>
-        ) : (
-          <div className="space-y-4">
-            {posts.map((post) => (
-              <div
-                key={post._id}
-                className="bg-black/30 backdrop-blur text-white p-4 rounded-lg flex justify-between items-center"
-              >
-                <div>
-                  <h2 className="text-xl font-semibold">{post.title}</h2>
-                  <p className="text-sm opacity-70">{post.date || 'No date'}</p>
-                </div>
-
-                <div className="flex gap-3">
-                  <Button
-                    variant="link"
-                    onClick={() => openEditDialog(post)}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    variant="link"
-                    onClick={() => handleDelete(post._id)}
-                  >
-                    Delete
-                  </Button>
-                </div>
+      {posts.length === 0 ? (
+        <p className="text-center">No posts found.</p>
+      ) : (
+        <div className="space-y-4">
+          {posts.map((post) => (
+            <div
+              key={post._id}
+              className="bg-black/30 backdrop-blur text-white p-4 rounded-lg flex justify-between items-center"
+            >
+              <div>
+                <h2 className="text-xl font-semibold">{post.title}</h2>
+                <p className="text-sm opacity-70">{post.date || 'No date'}</p>
               </div>
-            ))}
-          </div>
-        )}
 
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogContent className="sm:max-w-md backdrop-blur">
-            <DialogHeader>
-              <DialogTitle>Edit Post</DialogTitle>
-            </DialogHeader>
-
-            <div className="space-y-3">
-              <Input
-                placeholder="Title"
-                value={editTitle}
-                onChange={(e) => setEditTitle(e.target.value)}
-              />
-
-              <Input
-                placeholder="Body"
-                value={editBody}
-                onChange={(e) => setEditBody(e.target.value)}
-              />
-
-              <Textarea
-                placeholder="Content"
-                rows={4}
-                value={editContent}
-                onChange={(e) => setEditContent(e.target.value)}
-              />
-
-              <Input
-                placeholder="Thumbnail URL (https://...)"
-                value={editThumbnail}
-                onChange={(e) => setEditThumbnail(e.target.value)}
-              />
+              <div className="flex gap-3">
+                <Button
+                  variant="link"
+                  onClick={() => openEditDialog(post)}
+                >
+                  Edit
+                </Button>
+                <Button
+                  variant="link"
+                  onClick={() => handleDelete(post._id)}
+                >
+                  Delete
+                </Button>
+              </div>
             </div>
+          ))}
+        </div>
+      )}
 
-            <DialogFooter className="mt-4">
-              <Button variant="link" onClick={() => setIsDialogOpen(false)}>
-                Cancel
-              </Button>
-              <Button variant="link" onClick={handleEditSave}>Save</Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-      </section>
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="sm:max-w-md backdrop-blur">
+          <DialogHeader>
+            <DialogTitle>Edit Post</DialogTitle>
+          </DialogHeader>
+
+          <div className="space-y-3">
+            <Input
+              placeholder="Title"
+              value={editTitle}
+              onChange={(e) => setEditTitle(e.target.value)}
+            />
+
+            <Input
+              placeholder="Body"
+              value={editBody}
+              onChange={(e) => setEditBody(e.target.value)}
+            />
+
+            <Textarea
+              placeholder="Content"
+              rows={4}
+              value={editContent}
+              onChange={(e) => setEditContent(e.target.value)}
+            />
+
+            <Input
+              placeholder="Thumbnail URL (https://...)"
+              value={editThumbnail}
+              onChange={(e) => setEditThumbnail(e.target.value)}
+            />
+          </div>
+
+          <DialogFooter className="mt-4">
+            <Button variant="link" onClick={() => setIsDialogOpen(false)}>
+              Cancel
+            </Button>
+            <Button variant="link" onClick={handleEditSave}>Save</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </section>
   )
 }
 

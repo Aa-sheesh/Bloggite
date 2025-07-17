@@ -32,7 +32,12 @@ const Page = () => {
       try {
         const res = await fetch('/api/posts')
         const data = await res.json()
-        setPosts(data.posts || [])
+
+        const sortedPosts = (data.posts || []).sort(
+          (a, b) => new Date(b.date) - new Date(a.date)
+        )
+
+        setPosts(sortedPosts)
       } catch (err) {
         console.error('Failed to load posts')
       } finally {
@@ -42,6 +47,7 @@ const Page = () => {
 
     fetchPosts()
   }, [])
+
 
   if (loading) {
     return (
