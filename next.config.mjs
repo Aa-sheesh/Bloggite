@@ -1,6 +1,14 @@
 // next.config.mjs
-export default {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   images: {
-    domains: ['images.unsplash.com','drive.google.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**', // allow all HTTPS sources
+      },
+    ],
   },
 }
+
+export default nextConfig
