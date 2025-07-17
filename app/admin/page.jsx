@@ -4,10 +4,7 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 
-export const metadata = {
-  title: "Admin Login - Bloggite",
-  description: "Login page for Bloggite admin panel.",
-}
+
 
 
 const Page = () => {
