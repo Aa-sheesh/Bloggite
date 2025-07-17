@@ -24,9 +24,9 @@ export async function POST(req) {
   }
 
   await connectDB()
-  const { title, content, thumbnail, date } = await req.json()
+  const { title, content,body, thumbnail, date } = await req.json()
 
-  const post = new Post({ title, content, thumbnail, date })
+  const post = new Post({ title, content,body, thumbnail, date })
   await post.save()
 
   return NextResponse.json({ success: true, post }, { status: 201 })

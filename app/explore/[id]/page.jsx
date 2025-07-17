@@ -1,10 +1,8 @@
-// app/explore/[id]/page.tsx or page.jsx
 import connectDB from '@/lib/db'
 import Post from '@/lib/models/Post'
 import React from 'react'
 import { notFound } from 'next/navigation'
 
-// ✅ Static params for prerendering
 export async function generateStaticParams() {
   await connectDB()
   const posts = await Post.find({}, '_id').lean()
@@ -14,12 +12,13 @@ export async function generateStaticParams() {
   }))
 }
 
-const Page = async ({ params }) => {
+// ✅ FIXED: Don't destructure 'params' directly in the argument
+const Page = async (props) => {
+  const { params } = props
   const { id } = params
 
   await connectDB()
 
-  // ✅ Validate ID
   if (!id) return notFound()
 
   const post = await Post.findById(id).lean()
