@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import mongoose from 'mongoose'
 import Post from '@/lib/models/Post'
 import { cookies } from 'next/headers'
+import { sendNewPostEmail } from '@/lib/email'
 
 // Connect DB
 const connectDB = async () => {
@@ -28,6 +29,14 @@ export async function POST(req) {
 
   const post = new Post({ title, content,body, thumbnail, date })
   await post.save()
+
+  // Send email to all subscribers
+  try {
+    await sendNewPostEmail(post)
+  } catch (error) {
+    console.error('Failed to send email notification:', error)
+    // Don't fail the post creation if email fails
+  }
 
   return NextResponse.json({ success: true, post }, { status: 201 })
 }
