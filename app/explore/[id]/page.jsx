@@ -3,6 +3,11 @@ import Post from '@/lib/models/Post';
 import React from 'react';
 import { notFound } from 'next/navigation';
 
+//Markdown support added
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+
+
 export async function generateStaticParams() {
   await connectDB();
   const posts = await Post.find({}, '_id').lean();
@@ -29,7 +34,7 @@ export async function generateMetadata({ params }) {
   }
 
   const url = `https://bloggite-v1.vercel.app/explore/${params.id}`;
-  const title = `${post.title} – Bloggite by Aashish Singh`;
+  const title = `${post.title} – Bloggite`;
   const description = post.summary || post.body || "Read this insightful blog post by Aashish Singh on Bloggite.";
   const image = post.coverImage || "https://bloggite-v1.vercel.app/assets/default-og.png";
 
@@ -86,20 +91,18 @@ const Page = async ({ params }) => {
   return (
     <div className="flex justify-center min-h-[80vh] px-4">
       <div className="bg-black/40 backdrop-blur-sm text-white rounded-lg p-6 md:p-8 max-w-3xl w-full shadow-lg">
-        <h1 className="text-2xl md:text-4xl font-bold italic mb-4 text-center">
+        <h1 className="text-2xl md:text-3xl font-bold italic mb-4 text-center text-pretty">
           {post.title}
         </h1>
 
         {post.body && (
-          <p className="text-lg opacity-80 mb-4 text-center">{post.body}</p>
+          <p className="text-md opacity-80 mb-4 text-center text-pretty">{post.body}</p>
         )}
-
-        {post.content && (
-          <p className="text-base md:text-lg leading-relaxed mb-6 text-justify">
-            {post.content}
-          </p>
-        )}
-
+        <article className="text-pretty prose opacity-90">
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {post.content || "Can't fetch post"}
+          </ReactMarkdown>
+        </article>
         <p className="text-right text-sm text-white/50 italic">
           {post.date ? new Date(post.date).toDateString() : 'Unknown date'}
         </p>
@@ -109,4 +112,3 @@ const Page = async ({ params }) => {
 };
 
 export default Page;
-  

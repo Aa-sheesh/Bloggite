@@ -1,4 +1,7 @@
+
 /** @type {import('tailwindcss').Config} */
+import '@tailwindcss/typography'
+
 module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",     "./pages/**/*.{js,ts,jsx,tsx}",
@@ -12,10 +15,8 @@ module.exports = {
       fontFamily: {
         ubuntuMono: ["var(--font-ubuntu-sans-mono)"], // 👈 For font variable
       },
-      backgroundColor: {
-        blog: "#0D0D0D", // (Optional) if you're using bg-blog
-      },
+    
     },
   },
-  plugins: [],
+    plugins: [require('@tailwindcss/typography')],
 }

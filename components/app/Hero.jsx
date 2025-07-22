@@ -41,8 +41,8 @@ const Hero = () => {
           {top5.map((item) => (
             <CarouselItem key={item._id} className="p-6">
               <div className="flex flex-col items-center justify-center gap-4">
-                <h2 className="text-4xl font-bold">{item.title}</h2>
-                <p className="text-lg opacity-80">{item.body}</p>
+                <h2 className="text-3xl font-bold text-pretty">{item.title}</h2>
+                <p className="text-lg opacity-80 text-pretty">{item.body}</p>
               </div>
             </CarouselItem>
           ))}

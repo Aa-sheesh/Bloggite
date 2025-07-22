@@ -60,7 +60,7 @@ const Page = () => {
   return (
     <>
       <section className="w-full px-6 py-10">
-        <h2 className="text-center text-3xl font-bold mb-6 antialiased font-ubuntuMono">
+        <h2 className="text-center text-2xl font-bold mb-6 antialiased font-ubuntuMono">
           Browse Articles
         </h2>
 
@@ -84,10 +84,10 @@ const Page = () => {
                         alt="Article Thumbnail"
                         className="rounded-md object-cover"
                       />
-                      <CardTitle className="pt-2 font-ubuntuMono text-xl text-center">
+                      <CardTitle className="pt-2 font-ubuntuMono text-pretty text-center">
                         {item.title}
                       </CardTitle>
-                      <CardDescription className="text-sm text-center text-neutral-300">
+                      <CardDescription className="text-sm text-pretty text-center text-neutral-300">
                         {item.body || 'This is a blog post.'}
                       </CardDescription>
                     </CardHeader>
