@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import { toast } from 'sonner'
 
-const Footer = () => {
+const SubscribeComponent = () => {
   const [email, setEmail] = useState('')
 
   const handleSubscribe = async () => {
@@ -50,4 +50,4 @@ const Footer = () => {
   )
 }
 
-export default Footer
+export default SubscribeComponent

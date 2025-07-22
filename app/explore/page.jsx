@@ -21,7 +21,7 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel'
 
-import Footer from '@/components/Footer'
+import SubscribeComponent from '@/components/SubscribeComponent'
 
 const Page = () => {
   const [posts, setPosts] = useState([])
@@ -110,7 +110,7 @@ const Page = () => {
           <CarouselNext />
         </Carousel>
       </section>
-      <Footer />
+            <SubscribeComponent/>
     </>
   )
 }
