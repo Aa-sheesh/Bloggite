@@ -51,6 +51,7 @@ const Hero = () => {
         <CarouselNext className="bg-transparent" />
       </Carousel>
     </section>
+    
   )
 }
 

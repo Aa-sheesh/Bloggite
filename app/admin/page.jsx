@@ -71,16 +71,24 @@ const Page = () => {
   }
 
   return (
-    <div className="h-[80vh] flex flex-col items-center justify-center  text-xl font-semibold gap-3">
-      <div className='backdrop-blur text-center p-6 rounded-lg'>
-        <h1>Welcome Aashish!</h1>
-
+    <div className="h-[80vh] flex flex-col items-center justify-center  text-xl font-semibold rounded-lg">
+      <div className='backdrop-blur  p-6 rounded-lg p-5'>
+        <h1 className='text-2xl mb-2'>Welcome Aashish!</h1>
         <div className="flex gap-4 ">
-          <Link href="/admin/add-post">
-            <Button variant="link">Add Post</Button>
-          </Link>
-          <Link href="/admin/manage-posts">
-            <Button variant="link">Manage Posts</Button>
+          <div>
+            <h2 className='text-lg underline'>Posts</h2>
+            <Link href="/admin/add-post">
+              <Button variant="link">Add Post</Button>
+            </Link>
+            <Link href="/admin/manage-posts">
+              <Button variant="link">Manage Posts</Button>
+            </Link>
+          </div>
+        </div>
+        <div>
+        <h1 className='text-md underline'>Ideas</h1>
+          <Link href="/admin/manage-ideas">
+            <Button variant="link">Manage Ideas</Button>
           </Link>
         </div>
 
