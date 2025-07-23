@@ -90,7 +90,7 @@ const Page = async ({ params }) => {
 
   return (
     <div className="flex justify-center min-h-[80vh] px-4">
-      <div className="bg-black/40 backdrop-blur-sm text-white rounded-lg p-6 md:p-8 max-w-3xl w-full shadow-lg">
+      <div className="bg-black/40 backdrop-blur-sm text-white rounded-lg p-6 md:p-8 max-w-3xl w-full shadow-lg ">
         <h1 className="text-2xl md:text-3xl font-bold italic mb-4 text-center text-pretty">
           {post.title}
         </h1>

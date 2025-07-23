@@ -68,7 +68,7 @@ const Page = () => {
   }
 
   return (
-      <div className="max-w-md mx-auto mt-10">
+      <div className="max-w-2xl max-h-lg mx-auto mt-10 backdrop-blur">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
 

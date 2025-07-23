@@ -71,31 +71,33 @@ const Page = () => {
   }
 
   return (
-    <div className="h-[80vh] flex flex-col items-center justify-center text-xl font-semibold gap-3">
-      <h1>Welcome Aashish!</h1>
+    <div className="h-[80vh] flex flex-col items-center justify-center  text-xl font-semibold gap-3">
+      <div className='backdrop-blur text-center p-6 rounded-lg'>
+        <h1>Welcome Aashish!</h1>
 
-      <div className="flex gap-4">
-        <Link href="/admin/add-post">
-          <Button variant="link">Add Post</Button>
-        </Link>
-        <Link href="/admin/manage-posts">
-          <Button variant="link">Manage Posts</Button>
-        </Link>
+        <div className="flex gap-4 ">
+          <Link href="/admin/add-post">
+            <Button variant="link">Add Post</Button>
+          </Link>
+          <Link href="/admin/manage-posts">
+            <Button variant="link">Manage Posts</Button>
+          </Link>
+        </div>
+
+        <button
+          onClick={async () => {
+            await fetch('/api/admin/logout', {
+              method: 'POST',
+              credentials: 'include',
+            })
+
+            window.location.href = '/admin'
+          }}
+          className="mt-6 bg-red-500 text-white px-4 py-2 rounded"
+        >
+          Logout
+        </button>
       </div>
-
-      <button
-        onClick={async () => {
-          await fetch('/api/admin/logout', {
-            method: 'POST',
-            credentials: 'include',
-          })
-
-          window.location.href = '/admin'
-        }}
-        className="mt-6 bg-red-500 text-white px-4 py-2 rounded"
-      >
-        Logout
-      </button>
     </div>
   )
 }
