@@ -89,9 +89,9 @@ const Page = async ({ params }) => {
   }
 
   return (
-    <div className="flex justify-center min-h-[80vh] px-4">
-      <div className="bg-black/40 backdrop-blur-sm text-white rounded-lg p-6 md:p-8 max-w-3xl w-full shadow-lg ">
-        <h1 className="text-2xl md:text-3xl font-bold italic mb-4 text-center text-pretty">
+    <div className="flex justify-start md:justify-center min-h-[80vh] -mx-10 md:mx-0 md:px-4">
+      <div className="bg-black/40 backdrop-blur-sm text-white rounded-none md:rounded-lg p-4 md:p-8 w-full md:max-w-4xl shadow-lg antialiased font-ubuntuMono">
+        <h1 className="text-2xl md:text-3xl font-bold italic mb-4 text-center text-pretty antialiased font-ubuntuMono">
           {post.title}
         </h1>
 
