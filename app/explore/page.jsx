@@ -110,7 +110,7 @@ const Page = () => {
           <CarouselNext />
         </Carousel>
       </section>
-            <SubscribeComponent/>
+      <SubscribeComponent />
     </>
   )
 }

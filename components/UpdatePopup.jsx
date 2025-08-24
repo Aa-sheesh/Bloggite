@@ -36,8 +36,8 @@ const UpdatePopup = () => {
   }, [])
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
-      <Popover>
+    <div className="fixed bottom-6 left-6 z-50">
+      <Popover label="Future Updates">
         <PopoverTrigger asChild>
           <Button variant="outline" className="shadow-lg rounded-full px-5 py-3 backdrop-blur">
             <span className="hidden  sm:inline">Updates</span>
@@ -47,7 +47,7 @@ const UpdatePopup = () => {
 
         <PopoverContent
           side="top"
-          align="end"
+          align="start"
           className="w-80 max-h-96 overflow-y-auto backdrop-blur border border-white/10 text-white bg-black/60"
         >
           <div className="grid gap-4">

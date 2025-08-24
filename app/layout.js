@@ -5,6 +5,7 @@ import { Toaster } from "sonner";
 import Image from "next/image";
 import backgroundImage from '../public/background.svg'
 import UpdatePopup from "@/components/UpdatePopup";
+import Chatbot from "@/components/Chatbot";
 
 // Google font with CSS variable
 const ubuntuSansMono = Ubuntu_Sans_Mono({
@@ -92,6 +93,7 @@ export default function RootLayout({ children }) {
                 <Navbar />
                 {children}
                 <UpdatePopup/>
+                <Chatbot/>
                 <Toaster position="top-center" richColors expand />
             </body>
         </html>
