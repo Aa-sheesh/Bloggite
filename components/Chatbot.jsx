@@ -22,7 +22,7 @@ const Chatbot = () => {
     setSources([])
 
     try {
-      const response = await fetch("http://35.173.221.148/search", {
+      const response = await fetch("https://chatbot.aa-sheesh.tech/search", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query }),
