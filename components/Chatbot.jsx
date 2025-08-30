@@ -127,7 +127,7 @@ const Chatbot = () => {
           {typeof source === "object" ? (
             <div>
               <p className="font-semibold text-white">{source.title}</p>
-              <p>✍️ {source.author || "Aashish Singh"}</p>
+              <p>✍️ {"Aashish Singh"}</p>
               <p>⭐ {source.score}</p>
             </div>
           ) : (
