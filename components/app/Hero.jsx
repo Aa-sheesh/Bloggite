@@ -51,7 +51,7 @@ const Hero = () => {
 
   if (loading) {
     return (
-      <section className="w-full flex justify-center items-center h-[70vh]">
+      <section className="w-full flex justify-center items-center h-[70vh] px-4">
         <div className="w-10 h-10 border-4 border-white/50 border-dashed rounded-full animate-spin"></div>
       </section>
     )
@@ -59,26 +59,30 @@ const Hero = () => {
 
   return (
     <>
-      <section className="px-4 md:px-20 min-h-[80vh] flex items-center justify-center text-center text-[#F7F7F2]">
+      <section className="px-4 sm:px-6 md:px-20 min-h-[80vh] flex items-center justify-center text-center text-[#F7F7F2] container-responsive">
         <Carousel className="w-full max-w-3xl">
           <CarouselContent>
             {top5.map((item) => (
-              <CarouselItem key={item._id} className="p-6">
+              <CarouselItem key={item._id} className="p-4 sm:p-6">
                 <Link href={`/explore/${item._id}`}>
-                  <div className="flex flex-col items-center justify-center gap-4">
-                    <h2 title={item.title} className="text-3xl font-bold text-pretty">{item.title}</h2>
-                    <p title={item.body} className="text-lg opacity-80 text-pretty">{item.body}</p>
+                  <div className="flex flex-col items-center justify-center gap-3 sm:gap-4">
+                    <h2 title={item.title} className="text-xl sm:text-2xl md:text-3xl font-bold text-pretty text-overflow-safe leading-tight">
+                      {item.title}
+                    </h2>
+                    <p title={item.body} className="text-sm sm:text-base md:text-lg opacity-80 text-pretty text-overflow-safe leading-relaxed">
+                      {item.body}
+                    </p>
                   </div>
                 </Link>
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious title="Previous Post" className="bg-black/50 cursor-pointer hover:bg-black" />
-          <CarouselNext title="Next Post" className="bg-black/50 cursor-pointer hover:bg-black" />
+          <CarouselPrevious title="Previous Post" className="bg-black/50 cursor-pointer hover:bg-black hidden sm:flex" />
+          <CarouselNext title="Next Post" className="bg-black/50 cursor-pointer hover:bg-black hidden sm:flex" />
         </Carousel>
       </section>
-      <div className='flex items-center justify-center'>
-        <span className='bg-black/50 rounded-2xl  px-5 py-2'>
+      <div className='flex items-center justify-center px-4 pb-6'>
+        <span className='bg-black/50 rounded-2xl px-3 sm:px-5 py-2 text-sm sm:text-base text-overflow-safe'>
           Live Subscriber Count: {subscriberCount !== null ? subscriberCount : 'Loading...'}
         </span>
       </div>

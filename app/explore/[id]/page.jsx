@@ -84,7 +84,7 @@ const Page = async ({ params }) => {
   if (!post) {
     return (
       <div className="flex justify-center items-center min-h-[60vh] px-4">
-        <h1 className="text-center text-xl font-semibold italic text-white">
+        <h1 className="text-center text-lg sm:text-xl font-semibold italic text-white text-overflow-safe">
           Post not found.
         </h1>
       </div>
@@ -92,29 +92,29 @@ const Page = async ({ params }) => {
   }
 
   return (
-    <div className="flex justify-start md:justify-center min-h-[80vh] py-5 -mx-10 md:mx-0 md:px-4">
-      <div className="bg-black/50 backdrop-blur-sm text-white rounded-none md:rounded-lg p-4 md:p-8 w-full md:max-w-4xl shadow-lg antialiased font-ubuntuMono">
-        <h1 className="text-2xl md:text-3xl font-bold italic mb-4 text-center text-pretty antialiased font-ubuntuMono">
+    <div className="flex justify-start md:justify-center min-h-[80vh] py-5 px-4 sm:px-6 md:px-8">
+      <div className="bg-black/50 backdrop-blur-sm text-white rounded-lg p-4 sm:p-6 md:p-8 w-full max-w-4xl shadow-lg antialiased font-ubuntuMono overflow-hidden">
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold italic mb-4 text-center text-pretty antialiased font-ubuntuMono text-overflow-safe leading-tight">
           {post.title}
         </h1>
 
         {post.body && (
-          <p className="text-md opacity-80 mb-4 text-center text-pretty">{post.body}</p>
+          <p className="text-sm sm:text-base opacity-80 mb-4 text-center text-pretty text-overflow-safe leading-relaxed">
+            {post.body}
+          </p>
         )}
-        <article className="text-pretty prose opacity-90">
+        <article className="text-pretty prose prose-invert opacity-90 max-w-none text-overflow-safe">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
             {post.content || "Can't fetch post"}
           </ReactMarkdown>
         </article>
-        <p className="text-right text-sm text-white/50 italic">
+        <p className="text-right text-xs sm:text-sm text-white/50 italic mt-4">
           {post.date ? new Date(post.date).toDateString() : 'Unknown date'}
         </p>
         
-          <div className="mt-4">
-  <SharePopup url={`https://blogs.aa-sheesh.tech/explore/${post._id}`} />
-</div>
-
-        
+        <div className="mt-4">
+          <SharePopup url={`https://blogs.aa-sheesh.tech/explore/${post._id}`} />
+        </div>
       </div>
     </div>
   );

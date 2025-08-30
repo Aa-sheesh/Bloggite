@@ -119,39 +119,39 @@ const IdeaManager = () => {
   }, [])
 
   return (
-    <section className="max-w-5xl mt-2  bg-black/50  mx-auto py-10 px-6 backdrop-blur rounded-lg text-white">
-      <div className="text-center mb-6  " >
-        <Button variant="link" onClick={() => setIsDialogOpen(true)}>Add New Idea</Button>
+    <section className="max-w-5xl mt-2 bg-black/50 mx-auto py-6 sm:py-10 px-4 sm:px-6 backdrop-blur rounded-lg text-white">
+      <div className="text-center mb-4 sm:mb-6">
+        <Button variant="link" onClick={() => setIsDialogOpen(true)} className="text-sm sm:text-base">Add New Idea</Button>
       </div>
 
       {loading ? (
-        <p className="text-center">Loading...</p>
+        <p className="text-center text-sm sm:text-base">Loading...</p>
       ) : ideas.length === 0 ? (
-        <p className="text-center">No ideas found.</p>
+        <p className="text-center text-sm sm:text-base">No ideas found.</p>
       ) : (
-        <ul className="space-y-4">
+        <ul className="space-y-3 sm:space-y-4">
           {ideas.map((idea) => (
             <li
               key={idea._id}
-              className="bg-black/30 backdrop-blur p-4 rounded-lg"
+              className="bg-black/30 backdrop-blur p-3 sm:p-4 rounded-lg"
             >
-              <div className="flex justify-between items-start">
-                <div>
-                  <h3 className="font-bold text-lg">{idea.description}</h3>
-                  <p className="text-sm opacity-80">{idea.details}</p>
-                  <p className="text-sm mt-1 italic opacity-70">{idea.status}</p>
+              <div className="flex flex-col sm:flex-row justify-between items-start gap-3">
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-bold text-base sm:text-lg text-overflow-safe">{idea.description}</h3>
+                  <p className="text-xs sm:text-sm opacity-80 text-overflow-safe mt-1">{idea.details}</p>
+                  <p className="text-xs sm:text-sm mt-1 italic opacity-70">{idea.status}</p>
                 </div>
-                <div className="flex gap-2 mt-1">
+                <div className="flex gap-2 flex-shrink-0">
                   <Button
                     variant="link"
-                    className="text-sm"
+                    className="text-xs sm:text-sm p-1 sm:p-2"
                     onClick={() => handleEdit(idea)}
                   >
                     Edit
                   </Button>
                   <Button
                     variant="link"
-                    className="text-sm text-red-400"
+                    className="text-xs sm:text-sm text-red-400 p-1 sm:p-2"
                     onClick={() => handleDelete(idea._id)}
                   >
                     Delete
@@ -165,9 +165,9 @@ const IdeaManager = () => {
 
       {/* Add / Edit Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-md backdrop-blur text-white">
+        <DialogContent className="sm:max-w-md backdrop-blur text-white mx-4 sm:mx-0">
           <DialogHeader>
-            <DialogTitle >{isEdit ? 'Edit Idea' : 'Add New Idea'}</DialogTitle>
+            <DialogTitle className="text-base sm:text-lg text-overflow-safe">{isEdit ? 'Edit Idea' : 'Add New Idea'}</DialogTitle>
           </DialogHeader>
 
           <div className="space-y-3">
@@ -175,17 +175,20 @@ const IdeaManager = () => {
               placeholder="Short description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              className="text-sm sm:text-base"
             />
             <Textarea
               placeholder="More details (optional)"
               rows={3}
               value={details}
               onChange={(e) => setDetails(e.target.value)}
+              className="text-sm sm:text-base"
             />
             <Input
               placeholder="Status (e.g. 🚀 In Progress)"
               value={status}
               onChange={(e) => setStatus(e.target.value)}
+              className="text-sm sm:text-base"
             />
           </div>
 
@@ -196,10 +199,11 @@ const IdeaManager = () => {
                 resetForm()
                 setIsDialogOpen(false)
               }}
+              className="text-xs sm:text-sm"
             >
               Cancel
             </Button>
-            <Button variant="link" onClick={handleAddOrUpdate}>
+            <Button variant="link" onClick={handleAddOrUpdate} className="text-xs sm:text-sm">
               {isEdit ? 'Update' : 'Submit'}
             </Button>
           </DialogFooter>

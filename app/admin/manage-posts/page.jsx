@@ -105,38 +105,40 @@ const ManagePosts = () => {
     fetchPosts()
   }, [])
 
-  if (loading) return <p className="text-center mt-10">Loading posts...</p>
+  if (loading) return <p className="text-center mt-10 px-4">Loading posts...</p>
 
   return (
-    <section className="px-6 py-10 max-w-5xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6 text-center font-ubuntuMono">
+    <section className="px-4 sm:px-6 py-6 sm:py-10 max-w-5xl mx-auto">
+      <h1 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-center font-ubuntuMono text-overflow-safe">
         Manage Posts
       </h1>
 
       {posts.length === 0 ? (
-        <p className="text-center">No posts found.</p>
+        <p className="text-center text-sm sm:text-base">No posts found.</p>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4">
           {posts.map((post) => (
             <div
               key={post._id}
-              className="bg-black/30 backdrop-blur text-white p-4 rounded-lg flex justify-between items-center"
+              className="bg-black/30 backdrop-blur text-white p-3 sm:p-4 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3"
             >
-              <div>
-                <h2 className="text-xl font-semibold">{post.title}</h2>
-                <p className="text-sm opacity-70">{post.date || 'No date'}</p>
+              <div className="flex-1 min-w-0">
+                <h2 className="text-lg sm:text-xl font-semibold text-overflow-safe">{post.title}</h2>
+                <p className="text-xs sm:text-sm opacity-70">{post.date || 'No date'}</p>
               </div>
 
-              <div className="flex gap-3">
+              <div className="flex gap-2 sm:gap-3 flex-shrink-0">
                 <Button
                   variant="link"
                   onClick={() => openEditDialog(post)}
+                  className="text-xs sm:text-sm p-1 sm:p-2"
                 >
                   Edit
                 </Button>
                 <Button
                   variant="link"
                   onClick={() => handleDelete(post._id)}
+                  className="text-xs sm:text-sm p-1 sm:p-2"
                 >
                   Delete
                 </Button>
@@ -147,9 +149,9 @@ const ManagePosts = () => {
       )}
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="mt-10 h-[80vh] overflow-y-auto sm:max-w-md backdrop-blur">
+        <DialogContent className="mt-10 h-[80vh] overflow-y-auto sm:max-w-md backdrop-blur mx-4 sm:mx-0">
           <DialogHeader>
-            <DialogTitle>Edit Post</DialogTitle>
+            <DialogTitle className="text-base sm:text-lg text-overflow-safe">Edit Post</DialogTitle>
           </DialogHeader>
 
           <div className="space-y-3">
@@ -157,12 +159,14 @@ const ManagePosts = () => {
               placeholder="Title"
               value={editTitle}
               onChange={(e) => setEditTitle(e.target.value)}
+              className="text-sm sm:text-base"
             />
 
             <Input
               placeholder="Body"
               value={editBody}
               onChange={(e) => setEditBody(e.target.value)}
+              className="text-sm sm:text-base"
             />
 
             <Textarea
@@ -170,20 +174,22 @@ const ManagePosts = () => {
               rows={4}
               value={editContent}
               onChange={(e) => setEditContent(e.target.value)}
+              className="text-sm sm:text-base"
             />
 
             <Input
               placeholder="Thumbnail URL (https://...)"
               value={editThumbnail}
               onChange={(e) => setEditThumbnail(e.target.value)}
+              className="text-sm sm:text-base"
             />
           </div>
 
           <DialogFooter className="mt-4">
-            <Button variant="link" onClick={() => setIsDialogOpen(false)}>
+            <Button variant="link" onClick={() => setIsDialogOpen(false)} className="text-xs sm:text-sm">
               Cancel
             </Button>
-            <Button variant="link" onClick={handleEditSave}>Save</Button>
+            <Button variant="link" onClick={handleEditSave} className="text-xs sm:text-sm">Save</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

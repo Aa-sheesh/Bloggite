@@ -80,7 +80,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="en" className={ubuntuSansMono.variable}>
-            <body className="relative min-h-screen min-w-screen  antialiased">
+            <body className="relative min-h-screen overflow-x-hidden antialiased">
                 {/* Optimized, prioritized background image */}
                 <Image
                     src={backgroundImage}

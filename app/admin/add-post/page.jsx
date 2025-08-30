@@ -68,18 +68,18 @@ const Page = () => {
   }
 
   return (
-      <div className="max-w-2xl max-h-lg mx-auto mt-10 backdrop-blur">
+      <div className="max-w-2xl mx-auto mt-6 sm:mt-10 px-4 sm:px-6 backdrop-blur">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
 
             <FormField
               control={form.control}
               name="title"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Title</FormLabel>
+                  <FormLabel className="text-sm sm:text-base">Title</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter post title" {...field} />
+                    <Input placeholder="Enter post title" {...field} className="text-sm sm:text-base" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -91,9 +91,9 @@ const Page = () => {
               name="body"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Short Description</FormLabel>
+                  <FormLabel className="text-sm sm:text-base">Short Description</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g. A short summary or subtitle..." {...field} />
+                    <Input placeholder="e.g. A short summary or subtitle..." {...field} className="text-sm sm:text-base" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -105,9 +105,9 @@ const Page = () => {
               name="content"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Content</FormLabel>
+                  <FormLabel className="text-sm sm:text-base">Content</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Write full content here..." rows={6} {...field} />
+                    <Textarea placeholder="Write full content here..." rows={6} {...field} className="text-sm sm:text-base" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -119,9 +119,9 @@ const Page = () => {
               name="thumbnail"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Thumbnail URL</FormLabel>
+                  <FormLabel className="text-sm sm:text-base">Thumbnail URL</FormLabel>
                   <FormControl>
-                    <Input placeholder="https://..." {...field} />
+                    <Input placeholder="https://..." {...field} className="text-sm sm:text-base" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -130,7 +130,7 @@ const Page = () => {
 
             <button
               type="submit"
-              className="bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800 transition"
+              className="bg-black text-white px-3 sm:px-4 py-2 rounded-md hover:bg-gray-800 transition text-sm sm:text-base w-full sm:w-auto"
             >
               Submit
             </button>
