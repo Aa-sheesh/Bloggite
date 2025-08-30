@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function UnsubscribeSuccess() {
   return (
     <div className="min-h-[80vh]  flex items-center justify-center px-4">
-      <div className="max-w-md w-full  backdrop-blur rounded-lg shadow-lg p-8 text-center">
+      <div className="max-w-md w-full bg-black/50 backdrop-blur rounded-lg shadow-lg p-8 text-center">
         <div className="mb-6">
           <div className="mx-auto w-16 h-16  rounded-full flex items-center justify-center">
             <BadgeAlert size={42} />

@@ -80,14 +80,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="en" className={ubuntuSansMono.variable}>
-            <body className="relative min-h-screen min-w-screen px-10 py-5 antialiased">
+            <body className="relative min-h-screen min-w-screen  antialiased">
                 {/* Optimized, prioritized background image */}
                 <Image
                     src={backgroundImage}
                     alt="Background"
                     fill
                     priority
-                    className="object-cover -z-10"
+                    className="object-cover -z-10 filter brightness-80 saturate-110"
                     aria-hidden="true"
                 />
                 <Navbar />

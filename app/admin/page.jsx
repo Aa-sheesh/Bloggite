@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 
@@ -13,7 +13,12 @@ const Page = () => {
   const [password, setPassword] = useState('')
   const [authenticated, setAuthenticated] = useState(false)
   const [error, setError] = useState('')
-
+  useEffect(()=>{
+    if (localStorage.getItem('auth') === 'true') {
+      setAuthenticated(true);
+      setError('');
+    }
+  },[]);
   const handleLogin = async (e) => {
     e.preventDefault()
 
@@ -26,8 +31,9 @@ const Page = () => {
 
     const data = await res.json()
 
-    if (res.ok && data.success) {
+    if (res.ok && data.success || localStorage.getItem('auth')=='true') {
       setAuthenticated(true)
+      localStorage.setItem('auth','true')
       setError('')
     } else {
       setError(data.error || 'Invalid email or password')
@@ -39,7 +45,7 @@ const Page = () => {
       <div className="h-[80vh] flex items-center justify-center">
         <form
           onSubmit={handleLogin}
-          className="p-6 space-y-4 w-[300px] backdrop-blur shadow rounded"
+          className="p-6 space-y-4 w-[300px] bg-black/50 backdrop-blur shadow rounded-lg"
         >
           <h2 className="text-xl font-bold text-center">Admin Login</h2>
           <input
@@ -72,7 +78,7 @@ const Page = () => {
 
   return (
     <div className="h-[80vh] flex flex-col items-center justify-center  text-xl font-semibold rounded-lg">
-      <div className='backdrop-blur  p-6 rounded-lg p-5'>
+      <div className='backdrop-blur bg-black/50  p-10 justify-between rounded-lg p-5'>
         <h1 className='text-2xl mb-2'>Welcome Aashish!</h1>
         <div className="flex gap-4 ">
           <div>
@@ -91,20 +97,21 @@ const Page = () => {
             <Button variant="link">Manage Ideas</Button>
           </Link>
         </div>
-
+        <div className='text-center'>
         <button
           onClick={async () => {
             await fetch('/api/admin/logout', {
               method: 'POST',
               credentials: 'include',
             })
-
+            localStorage.setItem('auth','')
             window.location.href = '/admin'
           }}
-          className="mt-6 bg-red-500 text-white px-4 py-2 rounded"
+          className="mt-6 bg-red-500 text-white px-4 py-2 text-center rounded"
         >
           Logout
         </button>
+        </div>
       </div>
     </div>
   )

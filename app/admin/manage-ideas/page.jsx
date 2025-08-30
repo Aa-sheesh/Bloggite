@@ -119,9 +119,9 @@ const IdeaManager = () => {
   }, [])
 
   return (
-    <section className="max-w-3xl mx-auto py-10 px-6 backdrop-blur rounded-lg text-white">
-      <div className="text-center mb-6">
-        <Button onClick={() => setIsDialogOpen(true)}>Add New Idea</Button>
+    <section className="max-w-5xl mt-2  bg-black/50  mx-auto py-10 px-6 backdrop-blur rounded-lg text-white">
+      <div className="text-center mb-6  " >
+        <Button variant="link" onClick={() => setIsDialogOpen(true)}>Add New Idea</Button>
       </div>
 
       {loading ? (
@@ -165,9 +165,9 @@ const IdeaManager = () => {
 
       {/* Add / Edit Dialog */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-md backdrop-blur bg-black/70 text-white">
+        <DialogContent className="sm:max-w-md backdrop-blur text-white">
           <DialogHeader>
-            <DialogTitle>{isEdit ? 'Edit Idea' : 'Add New Idea'}</DialogTitle>
+            <DialogTitle >{isEdit ? 'Edit Idea' : 'Add New Idea'}</DialogTitle>
           </DialogHeader>
 
           <div className="space-y-3">

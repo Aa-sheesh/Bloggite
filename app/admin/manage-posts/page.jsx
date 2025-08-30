@@ -147,7 +147,7 @@ const ManagePosts = () => {
       )}
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="sm:max-w-md backdrop-blur">
+        <DialogContent className="mt-10 h-[80vh] overflow-y-auto sm:max-w-md backdrop-blur">
           <DialogHeader>
             <DialogTitle>Edit Post</DialogTitle>
           </DialogHeader>

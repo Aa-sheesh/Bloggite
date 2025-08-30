@@ -2,10 +2,13 @@ import connectDB from '@/lib/db';
 import Post from '@/lib/models/Post';
 import React from 'react';
 import { notFound } from 'next/navigation';
+import SharePopup from '@/components/SharePopup';
 
 //Markdown support added
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import { Share } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 
 export async function generateStaticParams() {
@@ -33,10 +36,10 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  const url = `https://bloggite-v1.vercel.app/explore/${params.id}`;
+  const url = `https://blogs.aa-sheesh.tech/explore/${params.id}`;
   const title = `${post.title} – Bloggite`;
   const description = post.summary || post.body || "Read this insightful blog post by Aashish Singh on Bloggite.";
-  const image = post.coverImage || "https://bloggite-v1.vercel.app/assets/default-og.png";
+  const image = post.coverImage || "https://blogs.aa-sheesh.tech/assets/default-og.png";
 
   return {
     title,
@@ -64,7 +67,7 @@ export async function generateMetadata({ params }) {
       images: [image],
       creator: "@Aashish64605886",
     },
-    metadataBase: new URL("https://bloggite-v1.vercel.app"),
+    metadataBase: new URL("https://blogs.aa-sheesh.tech"),
   };
 }
 
@@ -89,8 +92,8 @@ const Page = async ({ params }) => {
   }
 
   return (
-    <div className="flex justify-start md:justify-center min-h-[80vh] -mx-10 md:mx-0 md:px-4">
-      <div className="bg-black/40 backdrop-blur-sm text-white rounded-none md:rounded-lg p-4 md:p-8 w-full md:max-w-4xl shadow-lg antialiased font-ubuntuMono">
+    <div className="flex justify-start md:justify-center min-h-[80vh] py-5 -mx-10 md:mx-0 md:px-4">
+      <div className="bg-black/50 backdrop-blur-sm text-white rounded-none md:rounded-lg p-4 md:p-8 w-full md:max-w-4xl shadow-lg antialiased font-ubuntuMono">
         <h1 className="text-2xl md:text-3xl font-bold italic mb-4 text-center text-pretty antialiased font-ubuntuMono">
           {post.title}
         </h1>
@@ -106,6 +109,12 @@ const Page = async ({ params }) => {
         <p className="text-right text-sm text-white/50 italic">
           {post.date ? new Date(post.date).toDateString() : 'Unknown date'}
         </p>
+        
+          <div className="mt-4">
+  <SharePopup url={`https://blogs.aa-sheesh.tech/explore/${post._id}`} />
+</div>
+
+        
       </div>
     </div>
   );

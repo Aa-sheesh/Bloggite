@@ -52,17 +52,18 @@ const Page = () => {
   if (loading) {
     return (
       <section className="w-full flex justify-center items-center h-[70vh]">
-        <p className="text-white text-lg">Loading articles...</p>
+        <div className="w-10 h-10 border-4 border-white/50 border-dashed rounded-full animate-spin"></div>
+
       </section>
     )
   }
 
   return (
     <>
-      <section className="w-full px-6 py-10">
-        <h2 className="text-center text-2xl font-bold mb-6 antialiased font-ubuntuMono">
+      <section className="min-w-screen  px-6 py-5">
+        {/* <h2 className="text-center text-2xl font-bold mb-6 antialiased font-ubuntuMono">
           Browse Articles
-        </h2>
+        </h2> */}
 
         <Carousel className="w-full max-w-screen-xl mx-auto">
           <CarouselContent className="flex">

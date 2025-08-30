@@ -37,9 +37,9 @@ const UpdatePopup = () => {
 
   return (
     <div className="fixed bottom-6 left-6 z-50">
-      <Popover label="Future Updates">
+      <Popover >
         <PopoverTrigger asChild>
-          <Button variant="outline" className="shadow-lg rounded-full px-5 py-3 backdrop-blur">
+          <Button variant="outline" title="Future Updates" className="shadow-lg rounded-full bg-black/50 px-5 py-3 backdrop-blur border-white/10">
             <span className="hidden  sm:inline">Updates</span>
             <span className="inline sm:hidden"><ListCheck /></span>
           </Button>

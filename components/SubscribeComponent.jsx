@@ -34,15 +34,17 @@ const SubscribeComponent = () => {
   return (
     <footer className='text-center'>
       <input
+        title="Enter your email"
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="abc@gmail.com"
-        className="bg-white/50 p-2 rounded-l-md focus:outline-none focus:ring-0"
+        className="bg-black/50 backdrop-blur p-3 rounded-l-md focus:outline-none focus:ring-0"
       />
       <button
         onClick={handleSubscribe}
-        className='bg-black p-2 rounded-r-md'
+        title='Subscribe'
+        className='bg-black p-3 rounded-r-md'
       >
         Subscribe!
       </button>

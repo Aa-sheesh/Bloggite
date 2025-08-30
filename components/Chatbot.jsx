@@ -48,8 +48,9 @@ const Chatbot = () => {
       <Popover>
         <PopoverTrigger asChild>
           <Button
+            title="Ask me anything"
             variant="outline"
-            className="shadow-lg rounded-full px-5 py-3 backdrop-blur"
+            className="shadow-lg rounded-full px-5 py-3 backdrop-blur border-white/10 bg-black/50"
           >
             <span className="hidden sm:inline">Ask me anything</span>
             <span className="inline sm:hidden">
@@ -75,6 +76,7 @@ const Chatbot = () => {
             <div className="space-y-2">
               <p className="font-medium text-sm">💡 Got your own question?</p>
               <Input
+                title="Enter your question here..."
                 type="text"
                 placeholder="Type here..."
                 className="w-full rounded-lg border border-gray-500/40 bg-black/30 px-3 py-2 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring focus:ring-blue-500"
@@ -89,6 +91,7 @@ const Chatbot = () => {
                 disabled={loading}
               />
               <Button
+              title="🚀 Ask"
                 size="sm"
                 variant="outline"
                 className="w-full bg-white/30"
