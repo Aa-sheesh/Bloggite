@@ -113,19 +113,33 @@ const Chatbot = () => {
               </div>
             )}
 
-            {/* Display Sources */}
-            {sources.length > 0 && (
-              <div className="space-y-2">
-                <h5 className="font-semibold text-xs sm:text-sm">📚 Sources:</h5>
-                <div className="space-y-1">
-                  {sources.map((source, index) => (
-                    <div key={index} className="text-xs sm:text-sm text-gray-300 bg-gray-800 p-2 rounded text-overflow-safe">
-                      {source}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+           {/* Display Sources */}
+{sources.length > 0 && (
+  <div className="space-y-2">
+    <h5 className="font-semibold text-xs sm:text-sm">📚 Sources:</h5>
+    <div className="space-y-2">
+      {sources.map((source, index) => (
+        <div
+          key={index}
+          className="text-xs sm:text-sm text-gray-300 bg-gray-800 p-2 rounded text-overflow-safe"
+        >
+          {/* If source is an object, show its fields */}
+          {typeof source === "object" ? (
+            <div>
+              <p className="font-semibold text-white">{source.title}</p>
+              <p>✍️ {source.author}</p>
+              <p>⭐ {source.score}</p>
+            </div>
+          ) : (
+            // Otherwise just show it directly
+            <p>{source}</p>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
           </div>
         </PopoverContent>
       </Popover>
