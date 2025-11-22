@@ -9,15 +9,20 @@ export async function GET(req, { params }) {
   try {
     await connectDB()
 
-    // Validate if the ID is a valid MongoDB ObjectId
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      return NextResponse.json(
-        { success: false, error: 'Invalid post ID' },
-        { status: 400 }
-      )
-    }
+    let post = null
 
-    const post = await Post.findById(id).lean()
+    // Try to find by slug first (if it's not a valid ObjectId)
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      post = await Post.findOne({ slug: id }).lean()
+    } else {
+      // Try to find by ID
+      post = await Post.findById(id).lean()
+      
+      // If not found by ID, try slug as fallback
+      if (!post) {
+        post = await Post.findOne({ slug: id }).lean()
+      }
+    }
 
     if (!post) {
       return NextResponse.json(
@@ -28,7 +33,7 @@ export async function GET(req, { params }) {
 
     return NextResponse.json({ success: true, post }, { status: 200 })
   } catch (error) {
-    console.error('❌ Error fetching post by ID:', error)
+    console.error('❌ Error fetching post:', error)
     return NextResponse.json(
       { success: false, error: 'Failed to fetch post' },
       { status: 500 }

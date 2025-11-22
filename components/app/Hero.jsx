@@ -64,7 +64,7 @@ const Hero = () => {
           <CarouselContent>
             {top5.map((item) => (
               <CarouselItem key={item._id} className="p-4 sm:p-6">
-                <Link href={`/explore/${item._id}`}>
+                <Link href={`/article/${item.slug || item._id}`}>
                   <div className="flex flex-col items-center justify-center gap-3 sm:gap-4">
                     <h2 title={item.title} className="text-xl sm:text-2xl md:text-3xl font-bold text-pretty text-overflow-safe leading-tight">
                       {item.title}

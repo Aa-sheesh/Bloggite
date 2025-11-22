@@ -10,7 +10,7 @@ export default async function sitemap() {
     await connectDB();
 
     // Fetch all published posts
-    const posts = await Post.find({}).select('_id date').lean().sort({ date: -1 });
+    const posts = await Post.find({}).select('_id slug date').lean().sort({ date: -1 });
 
     // Static routes with appropriate priorities and change frequencies
     const staticRoutes = [
@@ -35,12 +35,14 @@ export default async function sitemap() {
     ];
 
     // Dynamic blog post routes
-    const postRoutes = posts.map((post) => ({
-      url: `${baseUrl}/explore/${post._id.toString()}`,
-      lastModified: post.date ? new Date(post.date) : new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    }));
+    const postRoutes = posts
+      .filter(post => post.slug) // Only include posts with slugs
+      .map((post) => ({
+        url: `${baseUrl}/article/${post.slug}`,
+        lastModified: post.date ? new Date(post.date) : new Date(),
+        changeFrequency: 'weekly',
+        priority: 0.8,
+      }));
 
     // Combine all routes
     return [...staticRoutes, ...postRoutes];

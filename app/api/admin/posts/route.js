@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import Post from '@/lib/models/Post'
 import { cookies } from 'next/headers'
 import { sendNewPostEmail } from '@/lib/email'
+import { generateSlug } from '@/lib/utils'
 
 // Connect DB
 const connectDB = async () => {
@@ -27,7 +28,18 @@ export async function POST(req) {
   await connectDB()
   const { title, content,body, thumbnail, date } = await req.json()
 
-  const post = new Post({ title, content,body, thumbnail, date })
+  // Generate slug from title
+  let slug = generateSlug(title)
+  
+  // Ensure slug is unique by appending a number if needed
+  let uniqueSlug = slug
+  let counter = 1
+  while (await Post.findOne({ slug: uniqueSlug })) {
+    uniqueSlug = `${slug}-${counter}`
+    counter++
+  }
+
+  const post = new Post({ title, content, body, thumbnail, date, slug: uniqueSlug })
   await post.save()
 
   // Send email to all subscribers

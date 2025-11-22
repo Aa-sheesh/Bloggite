@@ -67,7 +67,7 @@ const Page = () => {
                 key={item._id}
                 className="basis-full sm:basis-1/2 lg:basis-1/3 px-2"
               >
-                <Link href={`/explore/${item._id}`} className="no-underline">
+                <Link href={`/article/${item.slug || item._id}`} className="no-underline">
                   <Card className="bg-black/50 backdrop-blur border-0 shadow-lg text-white h-full flex flex-col justify-between hover:scale-[1.01] transition-all duration-200 ease-in-out">
                     <CardHeader className="flex flex-col items-center p-4">
                       <div className="relative w-full aspect-video overflow-hidden rounded-md">

@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server'
 import mongoose from 'mongoose'
 import Post from '@/lib/models/Post'
 import { cookies } from 'next/headers'
+import { generateSlug } from '@/lib/utils'
 
 // Connect to MongoDB
 const connectDB = async () => {
@@ -26,6 +27,24 @@ export async function PATCH(req, { params }) {
     await connectDB()
     const { id } = params
     const update = await req.json()
+
+    // If title is being updated, regenerate slug
+    if (update.title) {
+      let slug = generateSlug(update.title)
+      
+      // Ensure slug is unique (excluding current post)
+      let uniqueSlug = slug
+      let counter = 1
+      const existingPost = await Post.findOne({ slug: uniqueSlug, _id: { $ne: id } })
+      while (existingPost) {
+        uniqueSlug = `${slug}-${counter}`
+        counter++
+        const checkPost = await Post.findOne({ slug: uniqueSlug, _id: { $ne: id } })
+        if (!checkPost) break
+      }
+      
+      update.slug = uniqueSlug
+    }
 
     const updatedPost = await Post.findByIdAndUpdate(id, update, { new: true })
 
